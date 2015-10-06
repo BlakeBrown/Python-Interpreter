@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="assets/style.css">
 <head>
 	<meta charset="UTF-8">
 	<title>Online Compiler</title>
 </head>
 <body>
-	<h1>Hello world!</h1>
-	<textarea></textarea>
+	<h1 style="text-align:center">Python Compiler</h1>
+	<div class="container">
+		<textarea id="code-block"></textarea>
+		<br>
+		<button id="submit-code" type="submit">
+			Submit
+		</button>
+	</div>
+	<div id="response-container">
+		<pre class="compiler-response"></pre>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="assets/script.js"></script>
 </body>
 </html>

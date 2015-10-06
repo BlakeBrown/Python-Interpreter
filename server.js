@@ -1,54 +1,57 @@
-var express     = require("express");
-var app         = express();
-var fs          = require('fs');
-var path        = require("path");
-var PythonShell = require('python-shell');
+var express     = require("express"),
+	app         = express();
+	fs          = require('fs'),
+	path        = require("path"),
+	PythonShell = require('python-shell'),
+	bodyParser  = require('body-parser');
 
-var random_string = 'for num in range(10,20):\
-	print("hello world")';
+// Sets the directory path for the app (sets the correct path for loading css/js files, making ajax requests, etc)
+//__dirname resolves to the directory where this script resides
+app.use(express.static(__dirname));
+app.use(bodyParser.urlencoded({extended: true}));
 
-fs.writeFile('my_script.py', random_string, function (err) {
-  if (err) throw err;
-  console.log('It\'s saved!');
+// Get homepage
+app.get('/',function(req,res) {
+	res.sendFile('index.html');
 });
 
-var options = {
-  mode: 'text',
-  scriptPath: __dirname
+// Basic options for python shell
+var python_shell_options = {
+	mode: 'text',
+	scriptPath: __dirname
 };
 
-pyshell = new PythonShell('my_script.py', options);
+// Endpoint for python compiler
+app.post('/python-compiler', function(req, res) {
 
-pyshell.on('message', function (message) {
-  // received a message sent from the Python script (a simple "print" statement)
-  console.log(message);
+    var code = req.body.code;
+
+    // Write code to python script
+    fs.writeFile('my_script.py', code, function (err) {
+		if (err) throw err;
+    });
+
+    // Run the python script
+    PythonShell.run('my_script.py', python_shell_options, function (err, results) {
+    	var response;
+		if (err) {
+			response = {
+				status  : 200,
+				success : 'Error in script.',
+				compiler_error: JSON.stringify(err.stack),
+				err: err
+			}
+		} else {
+			// results is an array consisting of messages collected during execution 
+			response = {
+				status  : 200,
+				success : 'Compiled Succesfully.',
+				compiler_response: results
+			}
+		}
+		res.end(JSON.stringify(response));
+    });
 });
-
-pyshell.on('recieve', function(data) {
-	//console.log(data);
-});
-
-// end the input stream and allow the process to exit
-pyshell.end(function (err) {
-  if (err) {
-  	console.log(err);
-  }
-  console.log('finished');
-});
-
-app.get('/',function(req,res){
-  //__dirname resolves to the directory where the node.js script resides
-  res.sendFile(path.join(__dirname + '/index.html'));
-});
-
-// app.get('/about',function(req,res){
-//   res.sendFile(path.join(__dirname+'/about.html'));
-// });
-
-// app.get('/sitemap',function(req,res){
-//   res.sendFile(path.join(__dirname+'/sitemap.html'));
-// });
 
 app.listen(3000);
-
-console.log("Running at Port 3000");
+console.log("Listening on port 3000")
