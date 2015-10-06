@@ -21,10 +21,12 @@ $(document).ready(function() {
 
 				if(response.compiler_error) {
 					// If the python compiler returned an error
+					$("code").addClass("error");
 					var error_text = JSON.parse(response.compiler_error);
 					$(".compiler-response").html(error_text);
 				} else if(response.compiler_response) {
 					// Otherwise the code was compiled succesfully!
+					$("code").removeClass("error");
 					var compiler_response = response.compiler_response;
 					// Empty response box
 					$(".compiler-response").text("");

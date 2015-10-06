@@ -62,6 +62,11 @@ li{
 	border:1px solid #b7b7b7;
 	display: inline-block;
 	vertical-align: top;
+	font-family: monospace;
+}
+
+.error{
+	color: red;
 }
 
 .clearfix:after { 
