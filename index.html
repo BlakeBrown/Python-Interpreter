@@ -3,17 +3,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Online Compiler</title>
-		<link rel="stylesheet" href="static/style.css" type="text/css">
-		<script src="libs/src/ace.js" type="text/javascript" charset="utf-8"></script>
-		<script src="libs/src/theme-github.js" type="text/javascript" charset="utf-8"></script>
-		<script src="libs/src/mode-python.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="assets/style.css" type="text/css">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 		<div class="toolbarRow">
 			<h3>Online Python Interpreter</h3>
 			<ul class="toolbar">
-				<li><button onclick="run()"> Run </button></li>
+				<li><button id="run-code"> Run </button></li>
 				<li>
 					<input type="file" name="file" id="file">	
 				</li>
@@ -22,51 +19,12 @@
 		<div class="clearfix"></div>
 		<div>
 			<pre id="editor"><!-- onkeyup="runCode(event)"--></pre>
-			
-			<script>
-				var editor = ace.edit("editor");
-			    editor.setTheme("ace/theme/github");
-			    editor.getSession().setMode("ace/mode/python");
-
-			    runCode = function(event){
-			    	if (event.keyCode == 13){
-			    		var code = editor.session.getLine(editor.session.getLength() - 2);
-			    		console.log(code);
-			    	}
-			    }
-
-			    fileUpload = function(){
-
-			    }
-
-			    run = function(){
-			    	var code = editor.getValue();
-			    	console.log(code);
-			    }
-
-			    function readSingleFile(evt){
-					var file = evt.target.files[0];
-
-					if (file) {
-						var reader = new FileReader();
-						reader.onload = function(e){
-							var content = e.target.result;
-							console.log(content);
-							editor.setValue(content);
-						}
-						reader.readAsText(file);
-					}
-					else{
-						console.log("fail");
-					}
-				}
-				document.getElementById('file').addEventListener('change',readSingleFile, false);
-				var fileChooser = document.getElementById('file');
-				fileChooser.onclick = function () {
-				    this.value = '';
-				};
-			</script>
-			<div class="window" ></div>
+			<div class="compiler-response" ></div>
 		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="libs/src/ace.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/src/theme-github.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/src/mode-python.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/script.js"></script>
 	</body>
 </html>
