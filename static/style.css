@@ -1,9 +1,85 @@
+h3{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+	margin:0px;
+	float: left;
+	padding-top: 20px;
+}
 .toolbar{
-	width: 100%;
 	height: 40px;
 	background-color: #fdfdfd;
+	padding-right: 15px;	
+	float: right;
+	margin-bottom: 0px;
+	display: inline;
+}
+
+.toolbar form {
+	width: auto;
+    height: 21px;
+    background-color: #fdfdfd;
+    border-color: #efefef;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid#B7B7B7;
+    color: #8A8A8A;
+    cursor: pointer;
+    background-color: #f1efef;
+}
+
+.toolbar button{
+	width: 90px;
+    height: 28px;
+    background-color: #fdfdfd;
+    border-color: #efefef;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid#B7B7B7;
+    color: #8A8A8A;
+    cursor: pointer;
+    background-color: #f1efef;
+}
+
+.toolbar button:active{
+	background-color: #fdfdfd;
+}
+
+.toolbarRow{
+	width: 100%;
+	height: 100%;
 }
 
 li{
 	display: inline-block !important;
+}
+
+.window{
+	height:600px;
+	width:49%;
+	overflow: auto;
+	border:1px solid #b7b7b7;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.clearfix:after { 
+   content: "."; 
+   visibility: hidden; 
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+
+body {
+    overflow: hidden;
+}
+
+#editor {
+	width: 50%;
+	height: 600px;
+	display: inline-block;
+	border: 1px solid #b7b7b7;
+	margin-top: auto;
 }
