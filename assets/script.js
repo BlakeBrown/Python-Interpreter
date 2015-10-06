@@ -25,11 +25,15 @@ $(document).ready(function() {
 					$(".compiler-response").text("");
 					// Add every message from compiler
 					for(var i = 0; i < compiler_response.length; i++) {
-						var original_text = $(".compiler-response").text();
-						$(".compiler-response").text(original_text + "\n" + compiler_response[i]);
-						// Break in case user gets stuck in an infinite loop
-						if(i > 1000) {
-							break;
+						if(i == 0) {
+							$(".compiler-response").text(compiler_response[0]);
+						} else {						
+							var original_text = $(".compiler-response").text();
+							$(".compiler-response").text(original_text + "\n" + compiler_response[i]);
+							// Break in case user gets stuck in an infinite loop
+							if(i > 1000) {
+								break;
+							}
 						}
 					}
 				} else {
@@ -40,7 +44,7 @@ $(document).ready(function() {
 			error: function(res) {
 				var response = JSON.parse(res);
 				console.log("error");
-				console.log(response);
+				alert("Something went wrong. Please contact us.");
 			}
 		});
 	});

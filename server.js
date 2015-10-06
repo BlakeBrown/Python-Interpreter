@@ -24,32 +24,37 @@ var python_shell_options = {
 // Endpoint for python compiler
 app.post('/python-compiler', function(req, res) {
 
-    var code = req.body.code;
+    var response, code = req.body.code;
 
-    // Write code to python script
-    fs.writeFile('my_script.py', code, function (err) {
-		if (err) throw err;
+    // Write code to external file 'python_script.py'
+    fs.writeFile('python_script.py', code, function (err) {
+		if (err) {
+			response = {
+				message : 'Error writing to file.',
+				err: err
+			}
+			console.log(err);
+			res.status(400).send(JSON.stringify(response));
+		}
     });
 
     // Run the python script
-    PythonShell.run('my_script.py', python_shell_options, function (err, results) {
-    	var response;
+    PythonShell.run('python_script.py', python_shell_options, function (err, results) {
 		if (err) {
+			// err.stack contains a JSON representation of the error message
 			response = {
-				status  : 200,
-				success : 'Error in script.',
+				message : 'Error in script.',
 				compiler_error: JSON.stringify(err.stack),
 				err: err
 			}
 		} else {
-			// results is an array consisting of messages collected during execution 
+			// results contains an array of messages recieved from stdout
 			response = {
-				status  : 200,
-				success : 'Compiled Succesfully.',
+				message : 'Compiled Succesfully.',
 				compiler_response: results
 			}
 		}
-		res.end(JSON.stringify(response));
+		res.status(200).send(JSON.stringify(response));
     });
 });
 
