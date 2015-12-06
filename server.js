@@ -27,7 +27,7 @@ app.post('/python-compiler', function(req, res) {
     var response, code = req.body.code;
 
     // Write code to external file 'python_script.py'
-    fs.writeFile('python_script.py', code, function (err) {
+    fs.writeFile(path.join(__dirname, '/python_script.py'), code, function (err) {
 		if (err) {
 			response = {
 				message : 'Error writing to file.',
@@ -39,7 +39,7 @@ app.post('/python-compiler', function(req, res) {
     });
 
     // Run the python script
-    PythonShell.run('python_script.py', python_shell_options, function (err, results) {
+    PythonShell.run('/python_script.py', python_shell_options, function (err, results) {
 		if (err) {
 			// err.stack contains a JSON representation of the error message
 			response = {
@@ -59,4 +59,4 @@ app.post('/python-compiler', function(req, res) {
 });
 
 app.listen(3002);
-console.log("Listening on port 3002")
+console.log("Online-Compiler listening on port 3002")
