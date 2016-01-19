@@ -1,1 +1,3 @@
-print('hello world')
+import sys
+sys.modules['os']=None
+import os

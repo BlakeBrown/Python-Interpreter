@@ -25,6 +25,7 @@ var python_shell_options = {
 app.post('/python-compiler', function(req, res) {
 
     var response, code = req.body.code;
+    code = "import sys\nsys.modules['os']=None\n" + code;
 
     // Write code to external file 'python_script.py'
     fs.writeFile(path.join(__dirname, '/python_script.py'), code, function (err) {
