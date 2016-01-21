@@ -56,8 +56,8 @@ li{
 }
 
 .compiler-response {
-	height:600px;
-	width:49%;
+	height: 85vh;
+	width: 49%;
 	overflow: auto;
 	border:1px solid #b7b7b7;
 	display: inline-block;
@@ -84,7 +84,7 @@ body {
 
 #editor {
 	width: 50%;
-	height: 600px;
+	height: 85vh;
 	display: inline-block;
 	border: 1px solid #b7b7b7;
 	margin-top: auto;
